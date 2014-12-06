@@ -6,6 +6,10 @@ public class PlayerProjectile : MonoBehaviour {
 
 	public Vector3 spawnDirection;
 
+	public virtual float Damage() {
+		return 1.0f;
+	}
+
 	void OnCollisionEnter2D(Collision2D coll) {
 		Debug.Log ("BULLET COLLISION: "+coll.gameObject.tag);
 		if (coll.gameObject.tag == "Wall") {
@@ -18,5 +22,11 @@ public class PlayerProjectile : MonoBehaviour {
 		if (coll.gameObject.tag == "Wall") {
 			GameObject.Destroy (gameObject);
 		}
+
+		if (coll.gameObject.tag == "Enemy") {
+			coll.gameObject.SendMessage("ApplyDamage", Damage());
+			GameObject.Destroy (gameObject);
+		}
+
 	}
 }

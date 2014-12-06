@@ -5,8 +5,8 @@ public class PlayerBullet1 : PlayerProjectile {
 
 	const float speed = 10.0f;
 
-	void Start () {
-	
+	public override float Damage() {
+		return 1.0f;
 	}
 	
 	void Update () {

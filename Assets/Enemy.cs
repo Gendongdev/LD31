@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour {
 
+	public float life = 1;
 	public float damage = 1;
 	public float speed = 0.2f;
 
@@ -15,12 +16,29 @@ public class Enemy : MonoBehaviour {
 		EnemyUpdate ();
 	}
 
+	public void ApplyDamage (float dmg) {
+		if (life > 0) {
+			life -= dmg;
+			if (life <= 0) {
+				EnemyDead ();
+			}
+		}
+	}
 
 	float MovementAngleToPlayer () {
 		Vector3 worldPos = PlayerController.player.gameObject.transform.localPosition;
 		worldPos.x = worldPos.x - transform.localPosition.x;
 		worldPos.y = worldPos.y - transform.localPosition.y;
 		return Mathf.Atan2(worldPos.y, worldPos.x) * Mathf.Rad2Deg;
+	}
+
+
+	protected virtual void EnemySpawn () {
+
+	}
+
+	protected virtual void EnemyDead () {
+		GameObject.Destroy (gameObject);
 	}
 
 	protected virtual void EnemyUpdate () {
