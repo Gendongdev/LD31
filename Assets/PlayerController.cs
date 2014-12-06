@@ -1,10 +1,76 @@
 ﻿using UnityEngine;
 
+public static class Vector3RotationExtension
+{
+	public static Vector3 RotateLeft(this Vector3 v)
+	{
+		float x = -v.y;
+		float y = v.x;
+		v.x = x;
+		v.y = y;
+		return v;
+	}
+
+	public static Vector3 RotateRight(this Vector3 v)
+	{
+		float x = v.y;
+		float y = v.x;
+		v.x = x;
+		v.y = y;
+		return v;
+	}
+
+	public static Vector3 RotateLeftAboutY(this Vector3 v)
+	{
+		float x = -v.z;
+		float z = v.x;
+		v.x = x;
+		v.z = z;
+		return v;
+	}
+
+	public static Vector3 RotateRightAboutY(this Vector3 v)
+	{
+		float x = v.z;
+		float z = -v.x;
+		v.x = x;
+		v.z = z;
+		return v;
+	}
+
+	public static Vector3 RotateZ(this Vector3 v, float radians)
+	{
+		float x = v.x * Mathf.Cos (radians) - v.y * Mathf.Sin (radians);
+		float y = v.x * Mathf.Sin (radians) + v.y * Mathf.Cos (radians);
+		v.x = x;
+		v.y = y;
+		return v;
+	}
+}
+
+public static class Vector2RotationExtension
+{
+	public static Vector2 RotateLeft(this Vector2 v)
+	{
+		float x = -v.y;
+		float y = v.x;
+		return new Vector2(x, y);
+	}
+
+	public static Vector2 RotateZ(this Vector2 v, float radians)
+	{
+		float x = v.x * Mathf.Cos (radians) - v.y * Mathf.Sin (radians);
+		float y = v.x * Mathf.Sin (radians) + v.y * Mathf.Cos (radians);
+		return new Vector2(x, y);
+	}
+}
+
+
 public class PlayerController : MonoBehaviour {
 
 	private Vector2 velocity;
 	private float reloadTime;
-	private float currentWeaponReload = 3.0f;
+	private float currentWeaponReload = 0.25f;
 
 	private SpriteRenderer spriteRenderer; 
 
@@ -37,10 +103,10 @@ public class PlayerController : MonoBehaviour {
 		return Mathf.Atan2(worldPos.y, worldPos.x) * Mathf.Rad2Deg;
 	}
 	
-	void FixedUpdate () {
+	void Update () {
 
 		// Movement by AWSD keyboard
-		float speed = 0.01f;
+		float speed = Time.deltaTime * 0.5f;
 		if (Input.GetKey ("w")) {
 			velocity += new Vector2 (0, speed);
 		}
@@ -72,7 +138,7 @@ public class PlayerController : MonoBehaviour {
 			spriteRenderer.sprite = spriteFace2;
 		} else if (angle >= 112 && angle <= 157) {
 			spriteRenderer.sprite = spriteFace3;
-		} else if (angle >= 180 && angle <= -180) {
+		} else if (angle >= 157 || angle <= -157) {
 			spriteRenderer.sprite = spriteFace4;
 		} else if (angle >= -67 && angle <= -22) {
 			spriteRenderer.sprite = spriteFace7;
@@ -82,24 +148,25 @@ public class PlayerController : MonoBehaviour {
 			spriteRenderer.sprite = spriteFace5;
 		}
 
-		Debug.Log ("angle: " + angle);
 
 		if (Input.GetMouseButton (0)) {
-			CheckFireWeapon ();
+			CheckFireWeapon (angle);
 		}
 
 	}
 
-	public void Update() {
+	public void CheckFireWeapon(float playerAngle) {
 		reloadTime -= Time.deltaTime;
-	}
 
-	public void CheckFireWeapon() {
 		if (reloadTime <= 0.0f) {
 			reloadTime = currentWeaponReload;
 
-			
-			Instantiate (bullet1, transform.localPosition, transform.rotation);
+			Vector3 baseVector = new Vector3 (1, 0, 0);
+			baseVector = baseVector.RotateZ (MathR.DegreeToRadian (playerAngle));
+
+			Instantiate (bullet1, transform.localPosition + (baseVector * 0.4f), Quaternion.Euler(new Vector3(0, 0, playerAngle)));
+			PlayerProjectile projectile = bullet1.GetComponent<PlayerProjectile> ();
+			projectile.spawnDirection = baseVector;
 
 		}
 	}

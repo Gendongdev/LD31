@@ -58,8 +58,8 @@ TextureImporter:
         y: 300
         width: 100
         height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: .466583252, y: .304272473}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: player_1
       rect:
@@ -68,8 +68,8 @@ TextureImporter:
         y: 300
         width: 100
         height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: .538190782, y: .323367923}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: player_2
       rect:
@@ -78,8 +78,8 @@ TextureImporter:
         y: 300
         width: 100
         height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: .41884461, y: .27562958}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: player_3
       rect:
@@ -88,8 +88,8 @@ TextureImporter:
         y: 300
         width: 100
         height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: .457035512, y: .342463374}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: player_4
       rect:
@@ -98,8 +98,8 @@ TextureImporter:
         y: 200
         width: 100
         height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: .533416986, y: .304272473}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: player_5
       rect:
@@ -108,8 +108,8 @@ TextureImporter:
         y: 200
         width: 100
         height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: .504773855, y: .33768937}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: player_6
       rect:
@@ -118,8 +118,8 @@ TextureImporter:
         y: 200
         width: 100
         height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: .547738314, y: .34723708}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: player_7
       rect:
@@ -128,8 +128,8 @@ TextureImporter:
         y: 200
         width: 100
         height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: .490452588, y: .332915485}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
