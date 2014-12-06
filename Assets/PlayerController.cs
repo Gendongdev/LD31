@@ -68,11 +68,16 @@ public static class Vector2RotationExtension
 
 public class PlayerController : MonoBehaviour {
 
-	private Vector2 velocity;
+	public static PlayerController player;
+
 	private float reloadTime;
 	private float currentWeaponReload = 0.25f;
 
 	private SpriteRenderer spriteRenderer; 
+
+	public Transform BulletContainer;
+
+	public float movementForce = 20.0f;
 
 	public Sprite spriteFace0;
 	public Sprite spriteFace1;
@@ -88,6 +93,8 @@ public class PlayerController : MonoBehaviour {
 
 
 	void Start () {
+		player = this;
+
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		if (spriteRenderer.sprite == null)
 			spriteRenderer.sprite = spriteFace0;
@@ -103,29 +110,21 @@ public class PlayerController : MonoBehaviour {
 		return Mathf.Atan2(worldPos.y, worldPos.x) * Mathf.Rad2Deg;
 	}
 	
-	void Update () {
+	void FixedUpdate () {
 
 		// Movement by AWSD keyboard
-		float speed = Time.deltaTime * 0.5f;
 		if (Input.GetKey ("w")) {
-			velocity += new Vector2 (0, speed);
+			rigidbody2D.AddForce(new Vector2(0, movementForce));
 		}
 		if (Input.GetKey ("a")) {
-			velocity += new Vector2 (-speed, 0);
+			rigidbody2D.AddForce(new Vector2(-movementForce, 0));
 		}
 		if (Input.GetKey ("s")) {
-			velocity += new Vector2 (0, -speed);
+			rigidbody2D.AddForce(new Vector2(0, -movementForce));
 		}
 		if (Input.GetKey ("d")) {
-			velocity += new Vector2 (speed, 0);
+			rigidbody2D.AddForce(new Vector2(movementForce, 0));
 		}
-
-		velocity *= 0.7f;
-
-		Vector3 pos = gameObject.transform.localPosition;
-		pos.x += velocity.x;
-		pos.y += velocity.y;
-		transform.localPosition = pos;
 
 		// Fire gun by mouse
 		float angle = FiringAngle ();
@@ -164,10 +163,10 @@ public class PlayerController : MonoBehaviour {
 			Vector3 baseVector = new Vector3 (1, 0, 0);
 			baseVector = baseVector.RotateZ (MathR.DegreeToRadian (playerAngle));
 
-			Instantiate (bullet1, transform.localPosition + (baseVector * 0.4f), Quaternion.Euler(new Vector3(0, 0, playerAngle)));
-			PlayerProjectile projectile = bullet1.GetComponent<PlayerProjectile> ();
-			projectile.spawnDirection = baseVector;
-
+			Transform bulletClone = (Transform)Instantiate (bullet1, transform.localPosition + (baseVector * 0.4f), Quaternion.Euler(new Vector3(0, 0, playerAngle)));
+			PlayerProjectile projectile = bulletClone.GetComponent<PlayerProjectile> ();
+			projectile.spawnDirection = new Vector3 (baseVector.x, baseVector.y, 0);
+			bulletClone.SetParent (BulletContainer, false);
 		}
 	}
 }
