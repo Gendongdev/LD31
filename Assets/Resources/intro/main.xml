@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Canvas title="Intro" renderMode="ScreenSpaceOverlay" xmlns="http://schema.smallplanet.com/PlanetUnity2.xsd" >
+
+	<Color title="Black" color="#0000FF" anchor="stretch,stretch" />
+	
+	<GameObject title="LogoContainer" pivot="0.5,0.5" anchor="middle,center" >
+		<Image title="Man" resourcePath="intro/man" pivot="0.5,0.5" bounds="0,150,314,92" anchor="middle,center" />
+		<Image title="Vs" resourcePath="intro/vs" pivot="0.5,0.5" bounds="0,62,57,26" anchor="middle,center" />
+		<Image title="Twitch" resourcePath="intro/twitch" pivot="0.5,0.5" bounds="0,-100,731,242" anchor="middle,center" />
+	</GameObject>
+	
+	<Text title="ClickToBegin" value="CLICK TO BEGIN" bounds="0,0,600,400" pivot="0.5,0.5" anchor="middle,center" fontSize="18" fontColor="#FFFFFFFF" />
+	
+	<ColorButton anchor="stretch,stretch" color="#00000000" onTouchUp="StartGame" />
+	
+	<Code class="IntroController">
+		<Notification name="StartGame" />
+	</Code>
+
+</Canvas>

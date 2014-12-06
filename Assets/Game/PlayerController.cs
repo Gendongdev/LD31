@@ -148,6 +148,7 @@ public class PlayerController : MonoBehaviour {
 		}
 
 
+		reloadTime -= Time.deltaTime;
 		if (Input.GetMouseButton (0)) {
 			CheckFireWeapon (angle);
 		}
@@ -155,8 +156,6 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void CheckFireWeapon(float playerAngle) {
-		reloadTime -= Time.deltaTime;
-
 		if (reloadTime <= 0.0f) {
 			reloadTime = currentWeaponReload;
 

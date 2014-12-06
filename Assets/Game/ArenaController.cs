@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEditor.VersionControl;
 
 public class ArenaController : MonoBehaviour {
 
@@ -12,16 +13,16 @@ public class ArenaController : MonoBehaviour {
 	float chickenSpawnTimer = 0;
 
 	void Start () {
-	
+		TwitchController.onMessageReceived = (name, message) => {
+			Debug.Log("message: "+message);
+			if(message.Contains("!chicken")){
+				SpawnChicken ();
+			}
+		};
 	}
 	
 	void Update () {
-		chickenSpawnTimer -= Time.deltaTime;
-		if (chickenSpawnTimer < 0) {
-			chickenSpawnTimer = 3.0f;
 
-			SpawnObject ("!chicken");
-		}
 	}
 
 
@@ -35,9 +36,4 @@ public class ArenaController : MonoBehaviour {
 		spawn.SetParent (EnemyContainer, false);
 	}
 
-	public void SpawnObject(string objectName) {
-		if (objectName.Equals ("!chicken")) {
-			SpawnChicken ();
-		}
-	}
 }
