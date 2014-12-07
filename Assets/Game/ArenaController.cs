@@ -40,6 +40,8 @@ public class ArenaController : MonoBehaviour, IPUCode {
 	public PUText Score;
 	public PUText SpawnText;
 
+	public PUImage Info;
+
 	public PUColor RedDamage;
 
 	public List<WeaponInfo> Weapons = new List<WeaponInfo>();
@@ -57,6 +59,8 @@ public class ArenaController : MonoBehaviour, IPUCode {
 			int score = (int)args["score"];
 			playerScore += score;
 			Score.text.text = string.Format("Score: "+playerScore);
+
+			CloseInfo();
 		});
 
 		NotificationCenter.addObserver (this, "PLAYER_LIFE_UPDATE", null, (args, name) => {
@@ -120,9 +124,11 @@ public class ArenaController : MonoBehaviour, IPUCode {
 			ReportMessage(name, message);
 		};
 	}
-	
-	void Update () {
 
+	void CloseInfo() {
+		if (Info.rectTransform.anchoredPosition.y != -100 && LeanTween.isTweening (Info.gameObject) == false) {
+			LeanTween.moveLocalY (Info.rectTransform, -100, 2.0f).setEase (LeanTweenType.easeInOutCubic);
+		}
 	}
 
 	public void ReportMessage(string name, string message){
