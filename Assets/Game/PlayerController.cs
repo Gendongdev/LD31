@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour {
 
 	public Transform BulletContainer;
 
+	public int life = 6;
 	public float movementForce = 20.0f;
 
 	public Sprite spriteFace0;
@@ -91,6 +92,13 @@ public class PlayerController : MonoBehaviour {
 	public Transform bullet1;
 
 
+
+	public void ApplyDamage (float dmg) {
+		if (life > 0) {
+			life -= (int)dmg;
+			NotificationCenter.postNotification (null, "PLAYER_LIFE_UPDATE", NotificationCenter.Args("life", life));
+		}
+	}
 
 	void Start () {
 		player = this;

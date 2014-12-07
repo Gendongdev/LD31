@@ -6,8 +6,8 @@ public class PlayerProjectile : MonoBehaviour {
 
 	public Vector3 spawnDirection;
 
-	public virtual float Damage() {
-		return 1.0f;
+	public virtual int Damage() {
+		return 1;
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
@@ -27,6 +27,5 @@ public class PlayerProjectile : MonoBehaviour {
 			coll.gameObject.SendMessage("ApplyDamage", Damage());
 			GameObject.Destroy (gameObject);
 		}
-
 	}
 }

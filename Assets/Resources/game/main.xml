@@ -5,7 +5,29 @@
 	
 	<Color title="UnlockedContainer" color="#00000000" bounds="5,120,200,350" />
 	
-	<Text value='Play along! Type "!chicken" in chat to spawn a monster!' position="0,20,0" pivot="0.5,0.5" anchor="bottom,center" fontSize="18" fontColor="#FFFFFF99" />
+	<Text value='Play along! Type "!chicken" in Twitch chat to spawn a monster!' position="0,20,0" pivot="0.5,0.5" anchor="bottom,center" fontSize="18" fontColor="#FFFFFF99" />
+	
+	<Image resourcePath="game/bar" bounds="0,0,471,42" pivot="0.5,1.0" anchor="top,center">
+		<Image resourcePath="game/heart_off" pivot="0.5,0.5" scale="0.8,0.8,1" bounds="@eval(20+18,8+16,37,33)" />
+		<Image title="Heart0" resourcePath="game/heart_on" pivot="0.5,0.5" scale="0.8,0.8,1" bounds="@eval(20+18,8+16,37,33)" />
+		
+		<Image resourcePath="game/heart_off" pivot="0.5,0.5" scale="0.8,0.8,1" bounds="@eval(40+18,8+16,37,33)" />
+		<Image title="Heart1" resourcePath="game/heart_on" pivot="0.5,0.5" scale="0.8,0.8,1" bounds="@eval(40+18,8+16,37,33)" />
+		
+		<Image resourcePath="game/heart_off" pivot="0.5,0.5" scale="0.8,0.8,1" bounds="@eval(60+18,8+16,37,33)" />
+		<Image title="Heart2" resourcePath="game/heart_on" pivot="0.5,0.5" scale="0.8,0.8,1" bounds="@eval(60+18,8+16,37,33)" />
+		
+		<Image resourcePath="game/heart_off" pivot="0.5,0.5" scale="0.8,0.8,1" bounds="@eval(80+18,8+16,37,33)" />
+		<Image title="Heart3" resourcePath="game/heart_on" pivot="0.5,0.5" scale="0.8,0.8,1" bounds="@eval(80+18,8+16,37,33)" />
+		
+		<Image resourcePath="game/heart_off" pivot="0.5,0.5" scale="0.8,0.8,1" bounds="@eval(100+18,8+16,37,33)" />
+		<Image title="Heart4" resourcePath="game/heart_on" pivot="0.5,0.5" scale="0.8,0.8,1" bounds="@eval(100+18,8+16,37,33)" />
+		
+		<Image resourcePath="game/heart_off" pivot="0.5,0.5" scale="0.8,0.8,1" bounds="@eval(120+18,8+16,37,33)" />
+		<Image title="Heart5" resourcePath="game/heart_on" pivot="0.5,0.5" scale="0.8,0.8,1" bounds="@eval(120+18,8+16,37,33)" />
+		
+		<Text title="Score" value="Score: 0" bounds="220,8,200,33" fontSize="18" fontStyle="bold" fontColor="#FFFFFFFF" alignment="middleRight" />
+	</Image>
 	
 	<Code class="ArenaController">
 		

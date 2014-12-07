@@ -27,13 +27,45 @@ public class ArenaController : MonoBehaviour, IPUCode {
 	public PUColor ChatContainer;
 	public PUColor UnlockedContainer;
 
+	public PUImage Heart0;
+	public PUImage Heart1;
+	public PUImage Heart2;
+	public PUImage Heart3;
+	public PUImage Heart4;
+	public PUImage Heart5;
+	public PUText Score;
+
 	public List<WeaponInfo> Weapons = new List<WeaponInfo>();
 
 	public int spawnCounter = 0;
-
+	public int playerScore = 0;
 
 	void Start () {
 		PlanetUnityGameObject.SetReferenceResolution (960, 600);
+
+		NotificationCenter.addObserver (this, "ENEMY_KILLED", null, (args, name) => {
+			int score = (int)args["score"];
+			playerScore += score;
+			Score.text.text = string.Format("Score: "+playerScore);
+		});
+
+		NotificationCenter.addObserver (this, "PLAYER_LIFE_UPDATE", null, (args, name) => {
+			int life = (int)args["life"];
+			PUImage[] hearts = {Heart0, Heart1, Heart2, Heart3, Heart4, Heart5};
+
+			for(int i = 0; i < 6; i++){
+				PUImage heart = hearts[i];
+				if(i >= life){
+					if(heart.gameObject.activeSelf){
+						Debug.Log("scale down pls: "+heart.title);
+						LeanTween.scale(heart.rectTransform, Vector2.zero, 2.0f).setEase(LeanTweenType.easeInBounce).setOnComplete( () => {
+							heart.gameObject.SetActive(false);
+						});
+					}
+				}
+			}
+
+		});
 
 		Weapons.Add (new WeaponInfo ("!chicken", 2, 0, () => { SpawnChicken(); } ));
 		Weapons.Add (new WeaponInfo ("!knife", 4, 100, () => { SpawnChicken(); } ));
@@ -126,7 +158,6 @@ public class ArenaController : MonoBehaviour, IPUCode {
 				weaponText.SetAlignment (PlanetUnity2.TextAlignment.lowerLeft);
 				weaponText.LoadIntoPUGameObject (UnlockedContainer);
 			} else {
-				Debug.Log("weaponName: "+weaponName);
 				if (weaponName != null && weaponName.Equals (weapon.title)) {
 					PUText weaponText = UnlockedContainer.children [index] as PUText;
 					string newValue = string.Format ("[h]{0}[/h]   {1} / {2}", weapon.title, weapon.counter, weapon.maxCounter);

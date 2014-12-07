@@ -3,9 +3,10 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour {
 
-	public float life = 1;
-	public float damage = 1;
+	public int life = 1;
+	public int damage = 1;
 	public float speed = 0.2f;
+	public int score = 10;
 
 
 	void Start () {
@@ -16,7 +17,7 @@ public class Enemy : MonoBehaviour {
 		EnemyUpdate ();
 	}
 
-	public void ApplyDamage (float dmg) {
+	public void ApplyDamage (int dmg) {
 		if (life > 0) {
 			life -= dmg;
 			if (life <= 0) {
@@ -38,6 +39,7 @@ public class Enemy : MonoBehaviour {
 	}
 
 	protected virtual void EnemyDead () {
+		NotificationCenter.postNotification (null, "ENEMY_KILLED", NotificationCenter.Args("score", score));
 		GameObject.Destroy (gameObject);
 	}
 
@@ -48,4 +50,12 @@ public class Enemy : MonoBehaviour {
 		Vector3 baseVector = new Vector3 (1, 0, 0).RotateZ (MathR.DegreeToRadian (angle));
 		transform.localPosition += baseVector * speed;
 	}
+
+	void OnCollisionEnter2D(Collision2D coll) {
+		//Debug.Log ("Enemy COLLISION: "+coll.gameObject.tag);
+		if (coll.gameObject.tag == "Player") {
+			coll.gameObject.SendMessage("ApplyDamage", damage);
+		}
+	}
+		
 }
