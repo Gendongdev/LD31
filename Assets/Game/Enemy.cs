@@ -87,6 +87,11 @@ public class Enemy : MonoBehaviour {
 			audioDead.Play ();
 		}
 
+		if (onHitParticles != null) {
+			onHitParticles.transform.localPosition = gameObject.transform.localPosition;
+			onHitParticles.Emit (10);
+		}
+
 		NotificationCenter.postNotification (null, "ENEMY_KILLED", NotificationCenter.Args("score", score));
 		GameObject.Destroy (gameObject);
 	}
