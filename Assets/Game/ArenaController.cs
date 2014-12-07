@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
+using UnityEngine.UI;
+using System.Runtime.InteropServices;
 
 public class WeaponInfo {
 	public int counter;
@@ -27,6 +29,8 @@ public class ArenaController : MonoBehaviour, IPUCode {
 	public PUColor ChatContainer;
 	public PUColor UnlockedContainer;
 
+	public PUGameObject GameOver;
+
 	public PUImage Heart0;
 	public PUImage Heart1;
 	public PUImage Heart2;
@@ -44,10 +48,72 @@ public class ArenaController : MonoBehaviour, IPUCode {
 
 	public PUColor RedDamage;
 
+	public PUImage Hole0;
+	public PUImage Hole1;
+	public PUImage Hole2;
+
+	public PUImage PlayerGameOver;
+	public PUImage ChickenGameOver;
+
 	public List<WeaponInfo> Weapons = new List<WeaponInfo>();
 
 	public int spawnCounter = 0;
 	public int playerScore = 0;
+
+
+	public void GoToMenu() {
+		TwitchController.EndTwitch ();
+		Application.LoadLevel (0);
+	}
+
+	public void ContinuePlaying() {
+		if (GameOver.gameObject.activeSelf == true) {
+			LeanTween.alpha (GameOver.gameObject, 0, 0.7f).setEase (LeanTweenType.easeOutCubic).setOnComplete (() => {
+				GameOver.gameObject.SetActive (false);
+				PlayerController.player.enabled = true;
+				PlayerController.player.life = 10;
+
+				PUImage[] hearts = {Heart0, Heart1, Heart2, Heart3, Heart4, Heart5, Heart6, Heart7, Heart8, Heart9};
+				foreach(PUImage heart in hearts){
+					LeanTween.scale(heart.rectTransform, new Vector2(0.8f, 0.8f), 1.0f).setEase(LeanTweenType.easeOutElastic);
+					heart.gameObject.SetActive(true);
+				}
+			});
+		}
+	}
+
+	public void ShowGameOver() {
+		if (GameOver.gameObject.activeSelf == false) {
+			GameOver.gameObject.SetActive (true);
+			GameOver.CheckCanvasGroup ();
+			GameOver.canvasGroup.alpha = 0.0f;
+			LeanTween.alpha (GameOver.gameObject, 1, 0.7f).setEase (LeanTweenType.easeOutCubic);
+
+			Hole0.rectTransform.localScale = Vector3.zero;
+			Hole1.rectTransform.localScale = Vector3.zero;
+			Hole2.rectTransform.localScale = Vector3.zero;
+
+			PlayerController.player.enabled = false;
+
+			LeanTween.scale (Hole0.gameObject, Vector3.one, 0.0001f).setDelay (0.5f).setOnComplete (() => {
+				PlayerController.player.gunFire.Play();
+			});
+			LeanTween.scale (Hole1.gameObject, Vector3.one, 0.0001f).setDelay (0.6f).setOnComplete (() => {
+				PlayerController.player.gunFire.Play();
+			});
+			LeanTween.scale (Hole2.gameObject, Vector3.one, 0.0001f).setDelay (0.75f).setOnComplete (() => {
+				PlayerController.player.gunFire.Play();
+			});
+
+			float x = PlayerGameOver.rectTransform.anchoredPosition.x;
+			PlayerGameOver.rectTransform.anchoredPosition = new Vector2 (x + 300, PlayerGameOver.rectTransform.anchoredPosition.y);
+			LeanTween.moveLocalX (PlayerGameOver.rectTransform, x, 1.0f).setEase (LeanTweenType.easeOutCubic);
+
+			x = ChickenGameOver.rectTransform.anchoredPosition.x;
+			ChickenGameOver.rectTransform.anchoredPosition = new Vector2 (x - 300, ChickenGameOver.rectTransform.anchoredPosition.y);
+			LeanTween.moveLocalX (ChickenGameOver.rectTransform, x, 1.0f).setEase (LeanTweenType.easeOutCubic);
+		}
+	}
 
 	void Start () {
 		PlanetUnityGameObject.SetReferenceResolution (960, 600);
@@ -66,6 +132,10 @@ public class ArenaController : MonoBehaviour, IPUCode {
 		NotificationCenter.addObserver (this, "PLAYER_LIFE_UPDATE", null, (args, name) => {
 			int life = (int)args["life"];
 			PUImage[] hearts = {Heart0, Heart1, Heart2, Heart3, Heart4, Heart5, Heart6, Heart7, Heart8, Heart9};
+
+			if(life == 0) {
+				ShowGameOver();
+			}
 
 			RedDamage.canvasGroup.alpha = 0.5f;
 			LeanTween.alpha(RedDamage.gameObject, 0, 0.5f).setEase(LeanTweenType.easeInCubic);
@@ -201,7 +271,10 @@ public class ArenaController : MonoBehaviour, IPUCode {
 			index++;
 		}
 
-		SpawnText.text.text = PlanetUnityStyle.ReplaceStyleTags(string.Format ("[h]Next Power Unlock[/h]\n         {0} / {1}", spawnCounter, nextUnlock));
+		string newText = PlanetUnityStyle.ReplaceStyleTags(string.Format ("[h]Next Power Unlock[/h]\n         {0} / {1}", spawnCounter, nextUnlock));
+		if (newText.Equals (SpawnText.text.text) == false) {
+			SpawnText.text.text = newText;
+		}
 
 	}
 

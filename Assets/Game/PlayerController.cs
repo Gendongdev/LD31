@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour {
 	public AudioClip[] hurtSounds; 
 	public AudioClip[] tauntSounds; 
 
-	private int life = 10;
+	public int life = 10;
 	public float movementForce = 20.0f;
 
 	public Sprite spriteFace0;

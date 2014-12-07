@@ -47,8 +47,27 @@
 		<Text title="Score" value="Score: 0" bounds="220,8,200,33" fontSize="18" fontStyle="bold" fontColor="#FFFFFFFF" alignment="middleRight" />
 	</Image>
 	
-	<Code class="ArenaController">
+	<GameObject title="GameOver" active="false" color="#00000000" anchor="stretch,stretch">
+		<Color color="#000000AA" anchor="stretch,stretch" />
+		<Image bounds="279,265,387,40" resourcePath="game/gameover" />
 		
+		<Image title="Hole0" bounds="65,378,182,174" resourcePath="game/hole0" />
+		<Image title="Hole1" bounds="308,332,154,159" resourcePath="game/hole1" />
+		<Image title="Hole2" bounds="479,393,190,194" resourcePath="game/hole2" />
+		
+		<Image title="PlayerGameOver" bounds="678,145,211,429" resourcePath="game/player" />
+		<Image title="ChickenGameOver" bounds="83,154,168,215" resourcePath="game/chicken" />
+		
+		
+		
+		<ImageButton bounds="661,59,247,26" resourcePath="game/hellno" onTouchUp="ContinuePlaying" />
+		<ImageButton bounds="57,60,174,25" resourcePath="game/menu" onTouchUp="GoToMenu" />
+		
+	</GameObject>
+	
+	<Code class="ArenaController">
+		<Notification name="GoToMenu" />
+		<Notification name="ContinuePlaying" />
 	</Code>
 	
 </Canvas>

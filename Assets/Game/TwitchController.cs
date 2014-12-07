@@ -2,6 +2,7 @@
 using ChatSharp;
 using System;
 using System.Threading;
+using UnityEditor;
 
 public class TwitchController {
 
@@ -103,17 +104,38 @@ public class TwitchController {
 	}
 
 	public static void SimulateUserComment(string name, string msg) {
-		PlanetUnityGameObject.ScheduleTask(new Task(delegate
-			{
-				onMessageReceived(name, msg);
+		if (onMessageReceived != null) {
+			PlanetUnityGameObject.ScheduleTask (new Task (delegate {
+				onMessageReceived (name, msg);
 			}));
+		}
 	}
+
+
+	private static Thread demoThread;
 
 	public static void BeginDemoPlay() {
 		// This method will simiulate a IRC population sending obstacle commands...
-		Thread t = new Thread(new ThreadStart(DemoOnThread));
-		t.Start();
+		demoThread = new Thread(new ThreadStart(DemoOnThread));
+		demoThread.Start();
 
+	}
+
+	public static void EndTwitch() {
+		if (demoThread != null) {
+			demoThread.Abort ();
+			demoThread = null;
+		}
+
+		if (client != null) {
+			client.Quit ();
+			client = null;
+		}
+
+		onMessageReceived = null;
+		onConnectedToServer = null;
+
+		PlanetUnityGameObject.ClearTasks ();
 	}
 	
 }
