@@ -79,6 +79,8 @@ public class PlayerController : MonoBehaviour {
 
 	public AudioSource gunFire;
 
+	public AudioClip[] hurtSounds; 
+
 	private int life = 10;
 	public float movementForce = 20.0f;
 
@@ -116,6 +118,9 @@ public class PlayerController : MonoBehaviour {
 			spriteRenderer.color = new Color (1, 0, 0, 1);
 			LeanTween.color (gameObject, new Color (1, 1, 1, 1), 0.5f).setEase (LeanTweenType.easeInOutBounce);
 			ignoreDamageTimer = 0.5f;
+
+			int r = Random.Range (0, hurtSounds.Length);
+			gunFire.PlayOneShot (hurtSounds [r]);
 
 			NotificationCenter.postNotification (null, "PLAYER_LIFE_UPDATE", NotificationCenter.Args("life", life));
 		}

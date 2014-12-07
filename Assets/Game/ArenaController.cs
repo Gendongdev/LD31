@@ -174,7 +174,7 @@ public class ArenaController : MonoBehaviour, IPUCode {
 					weaponText.SetFontColor (new Color (1.0f, 1.0f, 1.0f, 0.6f));
 					weaponText.SetValue (string.Format ("[h2]{0}[/h2]  unlocks @ {1}", weapon.title, weapon.unlockedCounter));
 				}
-				weaponText.SetFontSize (18);
+				weaponText.SetFontSize (14);
 				weaponText.SetAlignment (PlanetUnity2.TextAlignment.lowerLeft);
 				weaponText.LoadIntoPUGameObject (UnlockedContainer);
 			} else {
