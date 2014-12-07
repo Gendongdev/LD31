@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Canvas title="Game" renderMode="ScreenSpaceOverlay" xmlns="http://schema.smallplanet.com/PlanetUnity2.xsd" >
 
+	<Color title="RedDamage" color="#FF0000FF" bounds="0,0,0,0" anchor="stretch,stretch" />
+
 	<Color title="ChatContainer" color="#00000000" bounds="760,120,200,350" />
 	
 	<Color title="UnlockedContainer" color="#00000000" bounds="5,120,200,350" />

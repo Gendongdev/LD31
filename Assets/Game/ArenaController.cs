@@ -35,6 +35,8 @@ public class ArenaController : MonoBehaviour, IPUCode {
 	public PUImage Heart5;
 	public PUText Score;
 
+	public PUColor RedDamage;
+
 	public List<WeaponInfo> Weapons = new List<WeaponInfo>();
 
 	public int spawnCounter = 0;
@@ -42,6 +44,9 @@ public class ArenaController : MonoBehaviour, IPUCode {
 
 	void Start () {
 		PlanetUnityGameObject.SetReferenceResolution (960, 600);
+
+		RedDamage.CheckCanvasGroup();
+		RedDamage.canvasGroup.alpha = 0.0f;
 
 		NotificationCenter.addObserver (this, "ENEMY_KILLED", null, (args, name) => {
 			int score = (int)args["score"];
@@ -53,12 +58,14 @@ public class ArenaController : MonoBehaviour, IPUCode {
 			int life = (int)args["life"];
 			PUImage[] hearts = {Heart0, Heart1, Heart2, Heart3, Heart4, Heart5};
 
+			RedDamage.canvasGroup.alpha = 0.5f;
+			LeanTween.alpha(RedDamage.gameObject, 0, 0.5f).setEase(LeanTweenType.easeInCubic);
+
 			for(int i = 0; i < 6; i++){
 				PUImage heart = hearts[i];
 				if(i >= life){
 					if(heart.gameObject.activeSelf){
-						Debug.Log("scale down pls: "+heart.title);
-						LeanTween.scale(heart.rectTransform, Vector2.zero, 2.0f).setEase(LeanTweenType.easeInBounce).setOnComplete( () => {
+						LeanTween.scale(heart.rectTransform, Vector2.zero, 1.0f).setEase(LeanTweenType.easeInElastic).setOnComplete( () => {
 							heart.gameObject.SetActive(false);
 						});
 					}

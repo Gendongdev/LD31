@@ -91,11 +91,15 @@ public class PlayerController : MonoBehaviour {
 
 	public Transform bullet1;
 
+	public float cameraShake = 0.0f;
+	public float cameraWiggleT = 0.0f;
+
 
 
 	public void ApplyDamage (float dmg) {
 		if (life > 0) {
 			life -= (int)dmg;
+			cameraShake = 0.3f;
 
 			spriteRenderer.color = new Color (1, 0, 0, 1);
 			LeanTween.color (gameObject, new Color (1, 1, 1, 1), 0.5f).setEase (LeanTweenType.easeInOutBounce);
@@ -165,6 +169,17 @@ public class PlayerController : MonoBehaviour {
 			CheckFireWeapon (angle);
 		}
 
+		cameraShake *= 0.98f;
+
+		cameraWiggleT += Time.fixedDeltaTime * 20.0f;
+
+		float wiggleX = (Wiggle.value (1.0f, cameraWiggleT, 32432.0f) - 0.5f)*0.1f*cameraShake;
+		float wiggleY = (Wiggle.value (1.0f, cameraWiggleT, 32432.0f) - 0.5f)*0.1f*cameraShake;
+		float wiggleZ = (Wiggle.value (1.0f, cameraWiggleT, 32432.0f) - 0.5f)*0.1f*cameraShake;
+
+		Vector3 camPos = new Vector3 (wiggleX, wiggleY, -4.9f + wiggleZ);
+
+		Camera.main.transform.localPosition = camPos;
 	}
 
 	public void CheckFireWeapon(float playerAngle) {
@@ -180,6 +195,8 @@ public class PlayerController : MonoBehaviour {
 			bulletClone.SetParent (BulletContainer, false);
 
 			rigidbody2D.AddForce(new Vector2(-baseVector.x*movementForce, -baseVector.y*movementForce));
+
+			cameraShake = 0.1f;
 		}
 	}
 }
