@@ -6,6 +6,7 @@
 	<Color title="ChatContainer" color="#00000000" bounds="760,120,200,350" />
 	
 	<Color title="UnlockedContainer" color="#00000000" bounds="5,120,200,350" />
+	<Text title="SpawnText" bounds="5,470,200,80" fontSize="18" fontColor="#FFFFFFFF" alignment="middleLeft" />
 	
 	<Text value='Play along! Type "!chicken" in Twitch chat to spawn a monster!' position="0,20,0" pivot="0.5,0.5" anchor="bottom,center" fontSize="18" fontColor="#FFFFFF99" />
 	

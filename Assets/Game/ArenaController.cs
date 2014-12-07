@@ -38,6 +38,7 @@ public class ArenaController : MonoBehaviour, IPUCode {
 	public PUImage Heart8;
 	public PUImage Heart9;
 	public PUText Score;
+	public PUText SpawnText;
 
 	public PUColor RedDamage;
 
@@ -156,8 +157,14 @@ public class ArenaController : MonoBehaviour, IPUCode {
 
 	public void UpdateUnlockables(string weaponName) {
 
+		int nextUnlock = 99999;
+
 		int index = 0;
 		foreach(WeaponInfo weapon in Weapons){
+
+			if (weapon.isUnlocked (spawnCounter) == false && weapon.unlockedCounter < nextUnlock) {
+				nextUnlock = weapon.unlockedCounter;
+			}
 
 			// Do we need to create a label for this?
 			if (index >= UnlockedContainer.children.Count) {
@@ -172,9 +179,9 @@ public class ArenaController : MonoBehaviour, IPUCode {
 					weaponText.SetValue (string.Format ("[h]{0}[/h]   {1} / {2}", weapon.title, weapon.counter, weapon.maxCounter));
 				} else {
 					weaponText.SetFontColor (new Color (1.0f, 1.0f, 1.0f, 0.6f));
-					weaponText.SetValue (string.Format ("[h2]{0}[/h2]  unlocks @ {1}", weapon.title, weapon.unlockedCounter));
+					weaponText.SetValue (string.Format ("[h2]{0}[/h2] @ {1}", weapon.title, weapon.unlockedCounter));
 				}
-				weaponText.SetFontSize (14);
+				weaponText.SetFontSize (18);
 				weaponText.SetAlignment (PlanetUnity2.TextAlignment.lowerLeft);
 				weaponText.LoadIntoPUGameObject (UnlockedContainer);
 			} else {
@@ -187,6 +194,7 @@ public class ArenaController : MonoBehaviour, IPUCode {
 			index++;
 		}
 
+		SpawnText.text.text = PlanetUnityStyle.ReplaceStyleTags(string.Format ("[h]Next Power Unlock[/h]\n         {0} / {1}", spawnCounter, nextUnlock));
 
 	}
 
@@ -243,7 +251,10 @@ public class ArenaController : MonoBehaviour, IPUCode {
 	}
 
 	public void SpawnBoulder() {
+		Vector3 spawnLoc = new Vector3 (UnityEngine.Random.Range (-2.1f, 2.2f), 2.1f);
 
+		Transform spawn = (Transform)Instantiate (ArenaControllerPrefabs.instance.boulder, spawnLoc, Quaternion.identity);
+		spawn.SetParent (ArenaControllerPrefabs.instance.EnemyContainer, false);
 	}
 
 }

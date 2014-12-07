@@ -201,9 +201,9 @@ public class PlayerController : MonoBehaviour {
 
 		cameraWiggleT += Time.fixedDeltaTime * 20.0f;
 
-		float wiggleX = (Wiggle.value (1.0f, cameraWiggleT, 32432.0f) - 0.5f)*0.1f*cameraShake;
-		float wiggleY = (Wiggle.value (1.0f, cameraWiggleT, 32432.0f) - 0.5f)*0.1f*cameraShake;
-		float wiggleZ = (Wiggle.value (1.0f, cameraWiggleT, 32432.0f) - 0.5f)*0.1f*cameraShake;
+		float wiggleX = (Wiggle.value (1.0f, cameraWiggleT, 32432.0f) - 0.5f)*0.2f*cameraShake;
+		float wiggleY = (Wiggle.value (1.0f, cameraWiggleT, 32432.0f) - 0.5f)*0.2f*cameraShake;
+		float wiggleZ = (Wiggle.value (1.0f, cameraWiggleT, 32432.0f) - 0.5f)*0.2f*cameraShake;
 
 		Vector3 camPos = new Vector3 (wiggleX, wiggleY, -4.9f + wiggleZ);
 
