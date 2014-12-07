@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour {
 	public AudioSource gunFire;
 
 	public AudioClip[] hurtSounds; 
+	public AudioClip[] tauntSounds; 
 
 	private int life = 10;
 	public float movementForce = 20.0f;
@@ -264,6 +265,12 @@ public class PlayerController : MonoBehaviour {
 			CreateShellCasing(transform.localPosition, baseVector);
 
 			gunFire.Play ();
+
+
+			if (Random.Range (0, 100) <= 2) {
+				int r = Random.Range (0, tauntSounds.Length);
+				gunFire.PlayOneShot (tauntSounds [r]);
+			}
 			
 		}
 	}
