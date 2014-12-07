@@ -103,6 +103,11 @@ public class PlayerController : MonoBehaviour {
 
 
 	public void ApplyDamage (float dmg) {
+		// ignore all damage while we are flashing red
+		if (LeanTween.isTweening (gameObject)) {
+			return;
+		}
+
 		if (life > 0) {
 			life -= (int)dmg;
 			cameraShake = 0.3f;

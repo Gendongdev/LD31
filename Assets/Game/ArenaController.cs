@@ -229,6 +229,10 @@ public class ArenaController : MonoBehaviour, IPUCode {
 
 	public void SpawnTrap() {
 
+		Vector3 spawnLoc = new Vector3 (UnityEngine.Random.Range (-4.1f, 4.2f), UnityEngine.Random.Range (2.1f, -2.2f));
+
+		Transform spawn = (Transform)Instantiate (ArenaControllerPrefabs.instance.trap, spawnLoc, Quaternion.identity);
+		spawn.SetParent (ArenaControllerPrefabs.instance.EnemyContainer, false);
 	}
 
 	public void SpawnBoulder() {
