@@ -8,6 +8,10 @@ public class Enemy : MonoBehaviour {
 	private float speed = 0.02f;
 	private int score = 10;
 
+	public AudioSource audioHurt;
+	public AudioSource audioDead;
+	public AudioSource audioSpawn;
+
 	public Transform DeadPrefab;
 
 	private ParticleSystem onHitParticles;
@@ -19,6 +23,8 @@ public class Enemy : MonoBehaviour {
 		if (onHitParticles != null) {
 			onHitParticles.renderer.sortingLayerName = "fore";
 		}
+
+		EnemySpawn ();
 	}
 
 	void Update () {
@@ -41,6 +47,10 @@ public class Enemy : MonoBehaviour {
 				onHitParticles.Emit (2);
 			}
 
+			if (audioHurt != null) {
+				audioHurt.Play ();
+			}
+
 			if (life <= 0) {
 				EnemyDead ();
 			}
@@ -61,6 +71,9 @@ public class Enemy : MonoBehaviour {
 
 	protected virtual void EnemySpawn () {
 
+		if (audioSpawn != null && Random.Range(0, 100) < 25) {
+			audioSpawn.Play ();
+		}
 	}
 
 	protected virtual void EnemyDead () {
@@ -70,6 +83,9 @@ public class Enemy : MonoBehaviour {
 			spawn.SetParent (ArenaControllerPrefabs.instance.EnemyContainer, false);
 		}
 
+		if (audioDead != null) {
+			audioDead.Play ();
+		}
 
 		NotificationCenter.postNotification (null, "ENEMY_KILLED", NotificationCenter.Args("score", score));
 		GameObject.Destroy (gameObject);

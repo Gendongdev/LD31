@@ -77,6 +77,8 @@ public class PlayerController : MonoBehaviour {
 
 	public Transform BulletContainer;
 
+	public AudioSource gunFire;
+
 	public int life = 6;
 	public float movementForce = 20.0f;
 
@@ -245,6 +247,9 @@ public class PlayerController : MonoBehaviour {
 			cameraShake = 0.1f;
 			
 			CreateShellCasing(transform.localPosition, baseVector);
+
+			gunFire.Play ();
+			
 		}
 	}
 
