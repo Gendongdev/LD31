@@ -76,8 +76,8 @@ public class ArenaController : MonoBehaviour, IPUCode {
 
 		Weapons.Add (new WeaponInfo ("!chicken", 2, 0, () => { SpawnChicken(); } ));
 		Weapons.Add (new WeaponInfo ("!knife", 5, 20, () => { SpawnKnife(); } ));
-		Weapons.Add (new WeaponInfo ("!trap", 10, 100, () => { SpawnTrap(); } ));
-		Weapons.Add (new WeaponInfo ("!boulder", 20, 250, () => { SpawnBoulder(); } ));
+		Weapons.Add (new WeaponInfo ("!trap", 10, 60, () => { SpawnTrap(); } ));
+		Weapons.Add (new WeaponInfo ("!boulder", 20, 120, () => { SpawnBoulder(); } ));
 
 		if (TwitchController.isConnected == false) {
 			TwitchController.BeginDemoPlay ();
@@ -224,6 +224,9 @@ public class ArenaController : MonoBehaviour, IPUCode {
 
 			angle += 360 / 8;
 		}
+
+		ArenaControllerPrefabs.instance.knifeSound.gameObject.transform.localPosition = spawnLoc;
+		ArenaControllerPrefabs.instance.knifeSound.Play ();
 
 	}
 

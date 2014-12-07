@@ -10,6 +10,8 @@ public class ArenaControllerPrefabs : MonoBehaviour {
 	public Transform trap;
 	public Transform boulder;
 
+	public AudioSource knifeSound;
+
 	static public ArenaControllerPrefabs instance;
 
 	public void Start() {
