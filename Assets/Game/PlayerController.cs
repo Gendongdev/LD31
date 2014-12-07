@@ -89,6 +89,8 @@ public class PlayerController : MonoBehaviour {
 	public Sprite spriteFace6;
 	public Sprite spriteFace7;
 
+	public Transform casing;
+
 	public Transform bullet1;
 
 	public ParticleSystem muzzleFlashParticleSystem;
@@ -241,6 +243,21 @@ public class PlayerController : MonoBehaviour {
 			muzzleFlashParticleSystem.Emit (6);
 
 			cameraShake = 0.1f;
+			
+			CreateShellCasing(transform.localPosition, baseVector);
 		}
+	}
+
+	public void CreateShellCasing(Vector3 pos, Vector3 direction) {
+		Transform shell = (Transform)Instantiate (casing, transform.localPosition, Quaternion.Euler(new Vector3(0, 0, UnityEngine.Random.Range(0,360))));
+		shell.SetParent (BulletContainer, false);
+		Physics2D.IgnoreCollision (shell.collider2D, collider2D, true);
+
+		if (direction.x < 0) {
+			shell.rigidbody2D.AddForce (new Vector3 (0.4f, 0.4f, 0));
+		} else {
+			shell.rigidbody2D.AddForce (new Vector3 (-0.4f, 0.4f, 0));
+		}
+		shell.rigidbody2D.AddTorque (UnityEngine.Random.Range(0.0f, 0.4f));
 	}
 }
