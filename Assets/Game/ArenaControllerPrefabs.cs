@@ -6,6 +6,7 @@ public class ArenaControllerPrefabs : MonoBehaviour {
 	public Transform BulletContainer;
 
 	public Transform chicken;
+	public Transform knife;
 
 	static public ArenaControllerPrefabs instance;
 

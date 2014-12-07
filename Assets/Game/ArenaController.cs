@@ -75,9 +75,9 @@ public class ArenaController : MonoBehaviour, IPUCode {
 		});
 
 		Weapons.Add (new WeaponInfo ("!chicken", 2, 0, () => { SpawnChicken(); } ));
-		Weapons.Add (new WeaponInfo ("!knife", 4, 20, () => { SpawnChicken(); } ));
-		Weapons.Add (new WeaponInfo ("!trap", 10, 100, () => { SpawnChicken(); } ));
-		Weapons.Add (new WeaponInfo ("!boulder", 10, 250, () => { SpawnChicken(); } ));
+		Weapons.Add (new WeaponInfo ("!knife", 5, 0, () => { SpawnKnife(); } ));
+		Weapons.Add (new WeaponInfo ("!trap", 10, 100, () => { SpawnTrap(); } ));
+		Weapons.Add (new WeaponInfo ("!boulder", 20, 250, () => { SpawnBoulder(); } ));
 
 		if (TwitchController.isConnected == false) {
 			TwitchController.BeginDemoPlay ();
@@ -194,6 +194,45 @@ public class ArenaController : MonoBehaviour, IPUCode {
 	public void SpawnChicken() {
 		Transform spawn = (Transform)Instantiate (ArenaControllerPrefabs.instance.chicken, GetSpawnLocation(), Quaternion.identity);
 		spawn.SetParent (ArenaControllerPrefabs.instance.EnemyContainer, false);
+	}
+
+	public void SpawnKnife() {
+		Vector3[] spawnLocs = {
+			new Vector3 (4.2f, 0, 0),
+			new Vector3 (-4.1f, 0, 0),
+			new Vector3 (0, 2.1f, 0),
+			new Vector3 (0, -2.2f, 0)
+		};
+
+		float angle = 0;
+		int randLoc = UnityEngine.Random.Range (0, spawnLocs.Length);
+		Vector3 spawnLoc = spawnLocs [randLoc];
+
+		for (int i = 0; i < 8; i++) {
+
+			Vector3 baseVector = new Vector3 (1, 0, 0);
+			baseVector = baseVector.RotateZ (MathR.DegreeToRadian (angle));
+
+
+
+			Transform spawn = (Transform)Instantiate (ArenaControllerPrefabs.instance.knife, spawnLoc, Quaternion.identity);
+			spawn.SetParent (ArenaControllerPrefabs.instance.EnemyContainer, false);
+
+
+			KnifeProjectile script = spawn.GetComponent<KnifeProjectile> ();
+			script.velocity = baseVector;
+
+			angle += 360 / 8;
+		}
+
+	}
+
+	public void SpawnTrap() {
+
+	}
+
+	public void SpawnBoulder() {
+
 	}
 
 }
