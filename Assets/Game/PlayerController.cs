@@ -91,6 +91,8 @@ public class PlayerController : MonoBehaviour {
 
 	public Transform bullet1;
 
+	public ParticleSystem muzzleFlashParticleSystem;
+
 	public float cameraShake = 0.0f;
 	public float cameraWiggleT = 0.0f;
 
@@ -110,6 +112,8 @@ public class PlayerController : MonoBehaviour {
 
 	void Start () {
 		player = this;
+
+		muzzleFlashParticleSystem.renderer.sortingLayerName = "fore";
 
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		if (spriteRenderer.sprite == null)
@@ -184,17 +188,53 @@ public class PlayerController : MonoBehaviour {
 
 	public void CheckFireWeapon(float playerAngle) {
 		if (reloadTime <= 0.0f) {
+
+			Vector3[] muzzleOffset = { 
+				new Vector3 (38.0f/100.0f, 14.0f/100.0f, 0.0f),
+				new Vector3 (38.0f/100.0f, 41.0f/100.0f, 0.0f),
+				new Vector3 (-11.0f/100.0f, 37.0f/100.0f, 0.0f),
+				new Vector3 (-37.0f/100.0f, 40.0f/100.0f, 0.0f),
+				new Vector3 (-37.0f/100.0f, 13.0f/100.0f, 0.0f),
+				new Vector3 (-33.0f/100.0f, -9.0f/100.0f, 0.0f),
+				new Vector3 (11.0f/100.0f, -11.0f/100.0f, 0.0f),
+				new Vector3 (34.0f/100.0f, -9.0f/100.0f, 0.0f)
+			};
+
+			int fadeIdx = 0;
+			if ((playerAngle >= -22 && playerAngle < 0.0f) || (playerAngle <= 22 && playerAngle >= 0.0f)) {
+				fadeIdx = 0;
+			} else if (playerAngle >= 22 && playerAngle <= 67) {
+				fadeIdx = 1;
+			} else if (playerAngle >= 67 && playerAngle <= 112) {
+				fadeIdx = 2;
+			} else if (playerAngle >= 112 && playerAngle <= 157) {
+				fadeIdx = 3;
+			} else if (playerAngle >= 157 || playerAngle <= -157) {
+				fadeIdx = 4;
+			} else if (playerAngle >= -67 && playerAngle <= -22) {
+				fadeIdx = 7;
+			} else if (playerAngle >= -112 && playerAngle <= -67) {
+				fadeIdx = 6;
+			} else if (playerAngle >= -157 && playerAngle <= -112) {
+				fadeIdx = 5;
+			}
+
+
 			reloadTime = currentWeaponReload;
 
 			Vector3 baseVector = new Vector3 (1, 0, 0);
 			baseVector = baseVector.RotateZ (MathR.DegreeToRadian (playerAngle));
 
-			Transform bulletClone = (Transform)Instantiate (bullet1, transform.localPosition + (baseVector * 0.4f), Quaternion.Euler(new Vector3(0, 0, playerAngle)));
+			Transform bulletClone = (Transform)Instantiate (bullet1, transform.localPosition + muzzleOffset[fadeIdx], Quaternion.Euler(new Vector3(0, 0, playerAngle)));
 			PlayerProjectile projectile = bulletClone.GetComponent<PlayerProjectile> ();
 			projectile.spawnDirection = new Vector3 (baseVector.x, baseVector.y, 0);
 			bulletClone.SetParent (BulletContainer, false);
 
 			rigidbody2D.AddForce(new Vector2(-baseVector.x*movementForce, -baseVector.y*movementForce));
+
+
+			muzzleFlashParticleSystem.transform.localPosition = bulletClone.transform.localPosition;
+			muzzleFlashParticleSystem.Emit (6);
 
 			cameraShake = 0.1f;
 		}

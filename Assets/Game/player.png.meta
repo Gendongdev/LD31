@@ -59,7 +59,7 @@ TextureImporter:
         width: 100
         height: 100
       alignment: 9
-      pivot: {x: .466583252, y: .304272473}
+      pivot: {x: .480904758, y: .237438351}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: player_1
       rect:
@@ -69,7 +69,7 @@ TextureImporter:
         width: 100
         height: 100
       alignment: 9
-      pivot: {x: .538190782, y: .323367923}
+      pivot: {x: .51909548, y: .223117068}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: player_2
       rect:
@@ -79,7 +79,7 @@ TextureImporter:
         width: 100
         height: 100
       alignment: 9
-      pivot: {x: .41884461, y: .27562958}
+      pivot: {x: .5, y: .256534129}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: player_3
       rect:
@@ -89,7 +89,7 @@ TextureImporter:
         width: 100
         height: 100
       alignment: 9
-      pivot: {x: .457035512, y: .342463374}
+      pivot: {x: .504773855, y: .227891237}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: player_4
       rect:
@@ -99,7 +99,7 @@ TextureImporter:
         width: 100
         height: 100
       alignment: 9
-      pivot: {x: .533416986, y: .304272473}
+      pivot: {x: .500000179, y: .223117068}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: player_5
       rect:
@@ -109,7 +109,7 @@ TextureImporter:
         width: 100
         height: 100
       alignment: 9
-      pivot: {x: .504773855, y: .33768937}
+      pivot: {x: .471356958, y: .227890924}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: player_6
       rect:
@@ -119,7 +119,7 @@ TextureImporter:
         width: 100
         height: 100
       alignment: 9
-      pivot: {x: .547738314, y: .34723708}
+      pivot: {x: .49045226, y: .237438813}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: player_7
       rect:
@@ -129,7 +129,7 @@ TextureImporter:
         width: 100
         height: 100
       alignment: 9
-      pivot: {x: .490452588, y: .332915485}
+      pivot: {x: .51909548, y: .232664943}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
