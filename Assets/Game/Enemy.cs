@@ -77,6 +77,13 @@ public class Enemy : MonoBehaviour {
 
 		Vector3 baseVector = new Vector3 (1, 0, 0).RotateZ (MathR.DegreeToRadian (angle));
 		transform.localPosition += baseVector * speed;
+
+		float scaleX = Mathf.Abs(transform.localScale.x);
+		if (baseVector.x < 0) {
+			transform.localScale = new Vector3 (scaleX, transform.localScale.y, transform.localScale.z);
+		} else {
+			transform.localScale = new Vector3 (-scaleX, transform.localScale.y, transform.localScale.z);
+		}
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {

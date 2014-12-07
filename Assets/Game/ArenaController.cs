@@ -75,15 +75,17 @@ public class ArenaController : MonoBehaviour, IPUCode {
 		});
 
 		Weapons.Add (new WeaponInfo ("!chicken", 2, 0, () => { SpawnChicken(); } ));
-		Weapons.Add (new WeaponInfo ("!knife", 4, 100, () => { SpawnChicken(); } ));
-		Weapons.Add (new WeaponInfo ("!moo", 10, 250, () => { SpawnChicken(); } ));
+		Weapons.Add (new WeaponInfo ("!knife", 4, 20, () => { SpawnChicken(); } ));
+		Weapons.Add (new WeaponInfo ("!moo", 10, 100, () => { SpawnChicken(); } ));
+		Weapons.Add (new WeaponInfo ("!trap", 10, 250, () => { SpawnChicken(); } ));
 		Weapons.Add (new WeaponInfo ("!boulder", 10, 500, () => { SpawnChicken(); } ));
-		Weapons.Add (new WeaponInfo ("!trap", 10, 1000, () => { SpawnChicken(); } ));
 
 		if (TwitchController.isConnected == false) {
 			TwitchController.BeginDemoPlay ();
 		}
 		TwitchController.onMessageReceived = (name, message) => {
+
+			int priorSpawnCount = spawnCounter;
 
 			foreach(WeaponInfo weapon in Weapons){
 				if(weapon.isUnlocked(spawnCounter)) {
@@ -98,6 +100,13 @@ public class ArenaController : MonoBehaviour, IPUCode {
 							spawnCounter++;
 						}
 					}
+				}
+			}
+
+			foreach(WeaponInfo weapon in Weapons){
+				if(weapon.isUnlocked(priorSpawnCount) == false &&
+					weapon.isUnlocked(spawnCounter) == true ){
+					UpdateUnlockables(weapon.title);
 				}
 			}
 				
