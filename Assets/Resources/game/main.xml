@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Canvas title="Game" renderMode="ScreenSpaceOverlay" xmlns="http://schema.smallplanet.com/PlanetUnity2.xsd" >
+
+	<Color title="ChatContainer" color="#00000000" bounds="760,120,200,350" />
+	
+	<Color title="UnlockedContainer" color="#00000000" bounds="5,120,200,350" />
+	
+	<Text value='Play along! Type "!chicken" in chat to spawn a monster!' position="0,20,0" pivot="0.5,0.5" anchor="bottom,center" fontSize="18" fontColor="#FFFFFF99" />
+	
+	<Code class="ArenaController">
+		
+	</Code>
+	
+</Canvas>

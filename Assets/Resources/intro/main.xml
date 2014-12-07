@@ -3,18 +3,36 @@
 
 	<Color title="Black" color="#0000FF" anchor="stretch,stretch" />
 	
+	<Text title="Disclaimer" value="LD31 contest entry • MAN vs TWITCH is not affiliated with Twitch.tv" position="0,20,0" pivot="0.5,0.5" anchor="bottom,center" fontSize="18" fontColor="#FFFFFFFF" />
+	
 	<GameObject title="LogoContainer" pivot="0.5,0.5" anchor="middle,center" >
 		<Image title="Man" resourcePath="intro/man" pivot="0.5,0.5" bounds="0,150,314,92" anchor="middle,center" />
 		<Image title="Vs" resourcePath="intro/vs" pivot="0.5,0.5" bounds="0,62,57,26" anchor="middle,center" />
 		<Image title="Twitch" resourcePath="intro/twitch" pivot="0.5,0.5" bounds="0,-100,731,242" anchor="middle,center" />
 	</GameObject>
 	
-	<Text title="ClickToBegin" value="CLICK TO BEGIN" bounds="0,0,600,400" pivot="0.5,0.5" anchor="middle,center" fontSize="18" fontColor="#FFFFFFFF" />
+	<GameObject title="StreamerArena" position="@eval(-2000,0,0)" size="960,600" >
+		<Image resourcePath="intro/streamer" pivot="0.5,0.5" scale="0.8,0.8,1" bounds="222,376,270,75" />
+		<ImageButton resourcePath="intro/play" pivot="0.5,0.5" bounds="222,117,167,26" onTouchUp="StartGameStreamer" />
+		<Text value="Enter your Twitch channel to play against your viewers!" position="232,303,0" size="317,84" pivot="0.5,0.5" fontSize="24" fontColor="#FFFFFFFF" alignment="middleCenter" />
+		
+		<Image bounds="73,195,311,46" resourcePath="intro/field">
+			<InputField title="TwitchChannelInput" placeholder="Twitch Channel Name" fontSize="20" fontStyle="bold" fontColor="#FFFFFFFF" bounds="@eval(10,10,w-20,h-20)" />
+		</Image>
+		
+		<ImageButton title="NoWebCover" bounds="38,79,369,187" resourcePath="intro/noweb" />
+	</GameObject>
 	
-	<ColorButton anchor="stretch,stretch" color="#00000000" onTouchUp="StartGame" />
+	<GameObject title="SoloArena" position="@eval(2000,0,0)" size="960,600" >
+		<Image resourcePath="intro/solo" pivot="0.5,0.5" scale="0.8,0.8,1" bounds="745,376,270,75" />
+		<ImageButton resourcePath="intro/play" pivot="0.5,0.5" bounds="745,117,167,26" onTouchUp="StartGameSolo" />
+		
+		<Text value="Don't stream? Enter the solo arena to battle it out against a phantom audience." position="745,266,0" size="306,138" pivot="0.5,0.5" fontSize="24" fontColor="#FFFFFFFF" alignment="upperCenter" />
+	</GameObject>
 	
 	<Code class="IntroController">
-		<Notification name="StartGame" />
+		<Notification name="StartGameSolo" />
+		<Notification name="StartGameStreamer" />
 	</Code>
 
 </Canvas>

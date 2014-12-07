@@ -8,9 +8,14 @@ public class IntroController : MonoBehaviour, IPUCode {
 	public PUImage Vs;
 	public PUImage Twitch;
 
-	public PUColor Black;
+	public PUInputField TwitchChannelInput;
+	public PUImageButton NoWebCover;
+	public PUText Disclaimer;
 
-	public PUText ClickToBegin;
+	public PUGameObject StreamerArena;
+	public PUGameObject SoloArena;
+
+	public PUColor Black;
 
 	bool introFinished = false;
 
@@ -19,8 +24,6 @@ public class IntroController : MonoBehaviour, IPUCode {
 		PlanetUnityGameObject.SetReferenceResolution (960, 600);
 
 		Black.CheckCanvasGroup ();
-		ClickToBegin.CheckCanvasGroup();
-		ClickToBegin.canvasGroup.alpha = 0.0f;
 
 		Man.rectTransform.localScale = Vector3.zero;
 		Vs.rectTransform.localScale = Vector3.zero;
@@ -33,23 +36,40 @@ public class IntroController : MonoBehaviour, IPUCode {
 		LeanTween.rotate(Twitch.gameObject, Vector3.zero, 1.0f).setDelay(1.0f+0.5f).setEase(LeanTweenType.easeOutCubic);
 
 		LeanTween.alpha (Black.gameObject, 0.3f, 4.0f).setEase(LeanTweenType.easeInCubic).setOnComplete (() => {
-			LeanTween.scale(LogoContainer.rectTransform, new Vector3(0.4f, 0.4f, 0.4f), 1.0f).setEase(LeanTweenType.easeOutBounce);
+			LeanTween.scale(LogoContainer.rectTransform, new Vector3(0.3f, 0.3f, 0.3f), 1.0f).setEase(LeanTweenType.easeOutBounce);
 			LeanTween.moveLocalY(LogoContainer.rectTransform, 200, 1.0f).setEase(LeanTweenType.easeOutCubic).setOnComplete( () => {
 
 				introFinished = true;
 
-				ClickToBegin.canvasGroup.alpha = 0.6f;
-				LeanTween.alpha ( ClickToBegin.gameObject, 1.0f, 1.0f).setLoopPingPong();
+				LeanTween.moveLocalX(StreamerArena.rectTransform, 0, 1.0f).setEase(LeanTweenType.easeOutCirc);
+				LeanTween.moveLocalX(SoloArena.rectTransform, 0, 1.0f).setEase(LeanTweenType.easeOutCirc);
 
 			});
 		});
 
-		TwitchController.ConnectToTwitchChat ("indygamedev");
+
+		NoWebCover.gameObject.SetActive (false);
+		if (Application.isWebPlayer) {
+			NoWebCover.gameObject.SetActive (true);
+		}
 	}
 
-	public void StartGame() {
+	public void StartGameSolo() {
 		if (introFinished) {
+			TwitchController.BeginDemoPlay();
 			Application.LoadLevel (1);
+		}
+	}
+
+	public void StartGameStreamer() {
+		if (introFinished) {
+
+			TwitchController.onConnectedToServer = () => {
+				TwitchController.SendRoomMessage("MAN vs TWITCH! Prepare yourselves to battle your streamer in the arena!");
+				Application.LoadLevel (1);
+			};
+
+			TwitchController.ConnectToTwitchChat (TwitchChannelInput.text.text);
 		}
 	}
 

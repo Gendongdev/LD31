@@ -1,0 +1,21 @@
+"[s18]" = "<size=18>";
+"[/s18]" = "</size>";
+
+"[s22]" = "<size=22>";
+"[/s22]" = "</size>";
+
+"[s24]" = "<size=24>";
+"[/s24]" = "</size>";
+
+"[h]" = "<b><color=#c9daffff>";
+"[/h]" = "</color></b>";
+
+"[h2]" = "<b><color=#c9daff55>";
+"[/h2]" = "</color></b>";
+
+"[b]" = "<b>";
+"[/b]" = "</b>";
+
+
+"[link]" = "<b><color=#e0bdffff>[\x0b";
+"[/link]" = "\x0c]</color></b>";
