@@ -3,10 +3,10 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour {
 
-	public int life = 1;
-	public int damage = 1;
-	public float speed = 0.2f;
-	public int score = 10;
+	private int life = 2;
+	private int damage = 1;
+	private float speed = 0.02f;
+	private int score = 10;
 
 
 	void Start () {
@@ -20,6 +20,10 @@ public class Enemy : MonoBehaviour {
 	public void ApplyDamage (int dmg) {
 		if (life > 0) {
 			life -= dmg;
+			SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+			spriteRenderer.color = new Color (1, 0, 0, 1);
+			LeanTween.color (gameObject, new Color (1, 1, 1, 1), 0.5f).setEase (LeanTweenType.easeInOutBounce);
+
 			if (life <= 0) {
 				EnemyDead ();
 			}

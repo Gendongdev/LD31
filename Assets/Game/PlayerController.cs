@@ -96,6 +96,10 @@ public class PlayerController : MonoBehaviour {
 	public void ApplyDamage (float dmg) {
 		if (life > 0) {
 			life -= (int)dmg;
+
+			spriteRenderer.color = new Color (1, 0, 0, 1);
+			LeanTween.color (gameObject, new Color (1, 1, 1, 1), 0.5f).setEase (LeanTweenType.easeInOutBounce);
+
 			NotificationCenter.postNotification (null, "PLAYER_LIFE_UPDATE", NotificationCenter.Args("life", life));
 		}
 	}
@@ -174,6 +178,8 @@ public class PlayerController : MonoBehaviour {
 			PlayerProjectile projectile = bulletClone.GetComponent<PlayerProjectile> ();
 			projectile.spawnDirection = new Vector3 (baseVector.x, baseVector.y, 0);
 			bulletClone.SetParent (BulletContainer, false);
+
+			rigidbody2D.AddForce(new Vector2(-baseVector.x*movementForce, -baseVector.y*movementForce));
 		}
 	}
 }
