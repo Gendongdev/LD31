@@ -94,7 +94,7 @@ public class TwitchController {
 
 			Thread.Sleep(random.Next() % sleepTimeMax + 50);
 
-			sleepTimeMax -= 50;
+			sleepTimeMax -= 30;
 			if (sleepTimeMax < 500) {
 				sleepTimeMax = 500;
 			}

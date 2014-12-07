@@ -33,6 +33,10 @@ public class ArenaController : MonoBehaviour, IPUCode {
 	public PUImage Heart3;
 	public PUImage Heart4;
 	public PUImage Heart5;
+	public PUImage Heart6;
+	public PUImage Heart7;
+	public PUImage Heart8;
+	public PUImage Heart9;
 	public PUText Score;
 
 	public PUColor RedDamage;
@@ -56,12 +60,12 @@ public class ArenaController : MonoBehaviour, IPUCode {
 
 		NotificationCenter.addObserver (this, "PLAYER_LIFE_UPDATE", null, (args, name) => {
 			int life = (int)args["life"];
-			PUImage[] hearts = {Heart0, Heart1, Heart2, Heart3, Heart4, Heart5};
+			PUImage[] hearts = {Heart0, Heart1, Heart2, Heart3, Heart4, Heart5, Heart6, Heart7, Heart8, Heart9};
 
 			RedDamage.canvasGroup.alpha = 0.5f;
 			LeanTween.alpha(RedDamage.gameObject, 0, 0.5f).setEase(LeanTweenType.easeInCubic);
 
-			for(int i = 0; i < 6; i++){
+			for(int i = 0; i < 10; i++){
 				PUImage heart = hearts[i];
 				if(i >= life){
 					if(heart.gameObject.activeSelf){

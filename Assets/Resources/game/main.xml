@@ -28,6 +28,19 @@
 		<Image resourcePath="game/heart_off" pivot="0.5,0.5" scale="0.8,0.8,1" bounds="@eval(120+18,8+16,37,33)" />
 		<Image title="Heart5" resourcePath="game/heart_on" pivot="0.5,0.5" scale="0.8,0.8,1" bounds="@eval(120+18,8+16,37,33)" />
 		
+		<Image resourcePath="game/heart_off" pivot="0.5,0.5" scale="0.8,0.8,1" bounds="@eval(140+18,8+16,37,33)" />
+		<Image title="Heart6" resourcePath="game/heart_on" pivot="0.5,0.5" scale="0.8,0.8,1" bounds="@eval(140+18,8+16,37,33)" />
+		
+		<Image resourcePath="game/heart_off" pivot="0.5,0.5" scale="0.8,0.8,1" bounds="@eval(160+18,8+16,37,33)" />
+		<Image title="Heart7" resourcePath="game/heart_on" pivot="0.5,0.5" scale="0.8,0.8,1" bounds="@eval(160+18,8+16,37,33)" />
+		
+		<Image resourcePath="game/heart_off" pivot="0.5,0.5" scale="0.8,0.8,1" bounds="@eval(180+18,8+16,37,33)" />
+		<Image title="Heart8" resourcePath="game/heart_on" pivot="0.5,0.5" scale="0.8,0.8,1" bounds="@eval(180+18,8+16,37,33)" />
+		
+		<Image resourcePath="game/heart_off" pivot="0.5,0.5" scale="0.8,0.8,1" bounds="@eval(200+18,8+16,37,33)" />
+		<Image title="Heart9" resourcePath="game/heart_on" pivot="0.5,0.5" scale="0.8,0.8,1" bounds="@eval(200+18,8+16,37,33)" />
+		
+		
 		<Text title="Score" value="Score: 0" bounds="220,8,200,33" fontSize="18" fontStyle="bold" fontColor="#FFFFFFFF" alignment="middleRight" />
 	</Image>
 	

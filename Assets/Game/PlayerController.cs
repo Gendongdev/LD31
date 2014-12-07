@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour {
 
 	public AudioSource gunFire;
 
-	public int life = 6;
+	private int life = 10;
 	public float movementForce = 20.0f;
 
 	public Sprite spriteFace0;
@@ -100,11 +100,12 @@ public class PlayerController : MonoBehaviour {
 	public float cameraShake = 0.0f;
 	public float cameraWiggleT = 0.0f;
 
+	public float ignoreDamageTimer;
 
 
 	public void ApplyDamage (float dmg) {
 		// ignore all damage while we are flashing red
-		if (LeanTween.isTweening (gameObject)) {
+		if (ignoreDamageTimer > 0.0f) {
 			return;
 		}
 
@@ -114,6 +115,7 @@ public class PlayerController : MonoBehaviour {
 
 			spriteRenderer.color = new Color (1, 0, 0, 1);
 			LeanTween.color (gameObject, new Color (1, 1, 1, 1), 0.5f).setEase (LeanTweenType.easeInOutBounce);
+			ignoreDamageTimer = 0.5f;
 
 			NotificationCenter.postNotification (null, "PLAYER_LIFE_UPDATE", NotificationCenter.Args("life", life));
 		}
@@ -140,6 +142,9 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Update () {
+		if (ignoreDamageTimer > 0.0f) {
+			ignoreDamageTimer -= Time.deltaTime;
+		}
 		GetComponent<SpriteRenderer>().sortingOrder = Mathf.RoundToInt(transform.position.y * 100f) * -1;
 	}
 
