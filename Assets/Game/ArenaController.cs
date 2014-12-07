@@ -76,9 +76,8 @@ public class ArenaController : MonoBehaviour, IPUCode {
 
 		Weapons.Add (new WeaponInfo ("!chicken", 2, 0, () => { SpawnChicken(); } ));
 		Weapons.Add (new WeaponInfo ("!knife", 4, 20, () => { SpawnChicken(); } ));
-		Weapons.Add (new WeaponInfo ("!moo", 10, 100, () => { SpawnChicken(); } ));
-		Weapons.Add (new WeaponInfo ("!trap", 10, 250, () => { SpawnChicken(); } ));
-		Weapons.Add (new WeaponInfo ("!boulder", 10, 500, () => { SpawnChicken(); } ));
+		Weapons.Add (new WeaponInfo ("!trap", 10, 100, () => { SpawnChicken(); } ));
+		Weapons.Add (new WeaponInfo ("!boulder", 10, 250, () => { SpawnChicken(); } ));
 
 		if (TwitchController.isConnected == false) {
 			TwitchController.BeginDemoPlay ();
@@ -98,6 +97,7 @@ public class ArenaController : MonoBehaviour, IPUCode {
 							weapon.counter = 0;
 							weapon.spawnBlock();
 							spawnCounter++;
+							break;
 						}
 					}
 				}

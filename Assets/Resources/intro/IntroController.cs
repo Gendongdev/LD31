@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class IntroController : MonoBehaviour, IPUCode {
 
+	public GameObject Music;
+
 	public PUGameObject LogoContainer;
 	public PUImage Man;
 	public PUImage Vs;
@@ -21,6 +23,8 @@ public class IntroController : MonoBehaviour, IPUCode {
 
 	public void Start() {
 
+		DontDestroyOnLoad(Music.gameObject);
+
 		PlanetUnityGameObject.SetReferenceResolution (960, 600);
 
 		Black.CheckCanvasGroup ();
@@ -36,6 +40,10 @@ public class IntroController : MonoBehaviour, IPUCode {
 		LeanTween.rotate(Twitch.gameObject, Vector3.zero, 1.0f).setDelay(1.0f+0.5f).setEase(LeanTweenType.easeOutCubic);
 
 		LeanTween.alpha (Black.gameObject, 0.3f, 4.0f).setEase(LeanTweenType.easeInCubic).setOnComplete (() => {
+		
+			AudioSource audioSource = Music.GetComponent<AudioSource>();
+			audioSource.Play();
+
 			LeanTween.scale(LogoContainer.rectTransform, new Vector3(0.3f, 0.3f, 0.3f), 1.0f).setEase(LeanTweenType.easeOutBounce);
 			LeanTween.moveLocalY(LogoContainer.rectTransform, 200, 1.0f).setEase(LeanTweenType.easeOutCubic).setOnComplete( () => {
 

@@ -64,23 +64,40 @@ public class TwitchController {
 
 		System.Random random = new System.Random ();
 
+		int sleepTimeMax = 2500;
+
 		while (true) {
 
-			int r = random.Next () % 3;
+			string[] comments = {
+				"Someone pass the !chicken?",
+				"How does a !chicken bake a cake? ",
+				"!chicken",
+				"!trap",
+				"!knife",
+				"!boulder",
+				"I really want some !chicken for dinner!",
+			};
 
-			switch (r) {
-			case 0:
-				SimulateUserComment ("CuriousBystander", "!chicken");
-				break;
-			case 1:
-				SimulateUserComment ("InterruptiveCow", "!moo");
-				break;
-			case 2:
-				SimulateUserComment ("FeralCat", "I really want some !chicken for dinner!");
-				break;
+			string[] people = {
+				"CuriousBystander",
+				"InterruptiveCow",
+				"FeralCat",
+				"LazyDeveloper",
+				"LuckyMusician",
+				"ShinyNight",
+				"TrickySandwhich",
+			};
+				
+			int c = random.Next() % comments.Length;
+			int p = random.Next() % people.Length;
+			SimulateUserComment (people [c], comments [p]);
+
+			Thread.Sleep(random.Next() % sleepTimeMax + 50);
+
+			sleepTimeMax -= 50;
+			if (sleepTimeMax < 500) {
+				sleepTimeMax = 500;
 			}
-
-			Thread.Sleep(random.Next() % 500 + 50);
 		}
 	}
 
