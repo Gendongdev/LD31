@@ -2,7 +2,6 @@
 using ChatSharp;
 using System;
 using System.Threading;
-using UnityEditor;
 
 public class TwitchController {
 
