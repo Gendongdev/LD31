@@ -75,7 +75,7 @@ public class ArenaController : MonoBehaviour, IPUCode {
 		});
 
 		Weapons.Add (new WeaponInfo ("!chicken", 2, 0, () => { SpawnChicken(); } ));
-		Weapons.Add (new WeaponInfo ("!knife", 5, 0, () => { SpawnKnife(); } ));
+		Weapons.Add (new WeaponInfo ("!knife", 5, 20, () => { SpawnKnife(); } ));
 		Weapons.Add (new WeaponInfo ("!trap", 10, 100, () => { SpawnTrap(); } ));
 		Weapons.Add (new WeaponInfo ("!boulder", 20, 250, () => { SpawnBoulder(); } ));
 
