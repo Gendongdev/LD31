@@ -129,7 +129,11 @@ public class PlayerController : MonoBehaviour {
 		worldPos.y = (-worldPos.y) - transform.localPosition.y;
 		return Mathf.Atan2(worldPos.y, worldPos.x) * Mathf.Rad2Deg;
 	}
-	
+
+	void Update () {
+		GetComponent<SpriteRenderer>().sortingOrder = Mathf.RoundToInt(transform.position.y * 100f) * -1;
+	}
+
 	void FixedUpdate () {
 
 		// Movement by AWSD keyboard

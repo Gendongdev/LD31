@@ -20,7 +20,11 @@ public class Enemy : MonoBehaviour {
 			onHitParticles.renderer.sortingLayerName = "fore";
 		}
 	}
-	
+
+	void Update () {
+		GetComponent<SpriteRenderer>().sortingOrder = Mathf.RoundToInt(transform.position.y * 100f) * -1;
+	}
+
 	void FixedUpdate () {
 		EnemyUpdate ();
 	}
