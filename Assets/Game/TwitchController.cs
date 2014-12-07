@@ -76,6 +76,7 @@ public class TwitchController {
 				"!knife",
 				"!boulder",
 				"I really want some !chicken for dinner!",
+				"I feel bad for you, have some !rageaid.",
 			};
 
 			string[] people = {
@@ -90,7 +91,7 @@ public class TwitchController {
 				
 			int c = random.Next() % comments.Length;
 			int p = random.Next() % people.Length;
-			SimulateUserComment (people [c], comments [p]);
+			SimulateUserComment (people [p], comments [c]);
 
 			Thread.Sleep(random.Next() % sleepTimeMax + 50);
 

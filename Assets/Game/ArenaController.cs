@@ -79,6 +79,7 @@ public class ArenaController : MonoBehaviour, IPUCode {
 
 		});
 
+		Weapons.Add (new WeaponInfo ("!rageaid", 15, 0, () => { SpawnAid(); } ));
 		Weapons.Add (new WeaponInfo ("!chicken", 2, 0, () => { SpawnChicken(); } ));
 		Weapons.Add (new WeaponInfo ("!knife", 5, 20, () => { SpawnKnife(); } ));
 		Weapons.Add (new WeaponInfo ("!trap", 10, 60, () => { SpawnTrap(); } ));
@@ -254,6 +255,14 @@ public class ArenaController : MonoBehaviour, IPUCode {
 		Vector3 spawnLoc = new Vector3 (UnityEngine.Random.Range (-2.1f, 2.2f), 2.1f);
 
 		Transform spawn = (Transform)Instantiate (ArenaControllerPrefabs.instance.boulder, spawnLoc, Quaternion.identity);
+		spawn.SetParent (ArenaControllerPrefabs.instance.EnemyContainer, false);
+	}
+
+	public void SpawnAid() {
+
+		Vector3 spawnLoc = new Vector3 (UnityEngine.Random.Range (-4.1f, 4.2f), UnityEngine.Random.Range (2.1f, -2.2f));
+
+		Transform spawn = (Transform)Instantiate (ArenaControllerPrefabs.instance.rageaid, spawnLoc, Quaternion.identity);
 		spawn.SetParent (ArenaControllerPrefabs.instance.EnemyContainer, false);
 	}
 

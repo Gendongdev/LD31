@@ -104,7 +104,14 @@ public class PlayerController : MonoBehaviour {
 	public float cameraWiggleT = 0.0f;
 
 	public float ignoreDamageTimer;
+	public float rageTimer;
 
+
+	public void RageAid() {
+		spriteRenderer.color = new Color (0.5f, 0.5f, 1, 1);
+		LeanTween.color (gameObject, new Color (1, 1, 1, 1), 5.0f).setEase (LeanTweenType.easeInSine);
+		rageTimer = 5.0f;
+	}
 
 	public void ApplyDamage (float dmg) {
 		// ignore all damage while we are flashing red
@@ -150,6 +157,9 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
 		if (ignoreDamageTimer > 0.0f) {
 			ignoreDamageTimer -= Time.deltaTime;
+		}
+		if (rageTimer > 0.0f) {
+			rageTimer -= Time.deltaTime;
 		}
 		GetComponent<SpriteRenderer>().sortingOrder = Mathf.RoundToInt(transform.position.y * 100f) * -1;
 	}
@@ -243,8 +253,11 @@ public class PlayerController : MonoBehaviour {
 				fadeIdx = 5;
 			}
 
-
-			reloadTime = currentWeaponReload;
+			if (rageTimer > 0) {
+				reloadTime = 0.06125f;
+			} else {
+				reloadTime = 0.25f;
+			}
 
 			Vector3 baseVector = new Vector3 (1, 0, 0);
 			baseVector = baseVector.RotateZ (MathR.DegreeToRadian (playerAngle));
