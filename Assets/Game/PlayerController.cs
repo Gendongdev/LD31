@@ -79,6 +79,8 @@ public class PlayerController : MonoBehaviour {
 
 	public AudioSource gunFire;
 
+	public AudioClip rageAid;
+
 	public AudioClip[] hurtSounds; 
 	public AudioClip[] tauntSounds; 
 
@@ -111,6 +113,8 @@ public class PlayerController : MonoBehaviour {
 		spriteRenderer.color = new Color (0.5f, 0.5f, 1, 1);
 		LeanTween.color (gameObject, new Color (1, 1, 1, 1), 5.0f).setEase (LeanTweenType.easeInSine);
 		rageTimer = 5.0f;
+
+		gunFire.PlayOneShot (rageAid);
 	}
 
 	public void ApplyDamage (float dmg) {
