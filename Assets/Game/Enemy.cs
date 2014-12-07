@@ -8,9 +8,17 @@ public class Enemy : MonoBehaviour {
 	private float speed = 0.02f;
 	private int score = 10;
 
+	public Transform DeadPrefab;
+
+	private ParticleSystem onHitParticles;
 
 	void Start () {
-
+		if (OnHitParticleSystemName () != null) {
+			onHitParticles = GameObject.Find (OnHitParticleSystemName ()).GetComponent<ParticleSystem> ();
+		}
+		if (onHitParticles != null) {
+			onHitParticles.renderer.sortingLayerName = "fore";
+		}
 	}
 	
 	void FixedUpdate () {
@@ -23,6 +31,11 @@ public class Enemy : MonoBehaviour {
 			SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 			spriteRenderer.color = new Color (1, 0, 0, 1);
 			LeanTween.color (gameObject, new Color (1, 1, 1, 1), 0.5f).setEase (LeanTweenType.easeInOutBounce);
+
+			if (onHitParticles != null) {
+				onHitParticles.transform.localPosition = gameObject.transform.localPosition;
+				onHitParticles.Emit (2);
+			}
 
 			if (life <= 0) {
 				EnemyDead ();
@@ -38,11 +51,22 @@ public class Enemy : MonoBehaviour {
 	}
 
 
+	protected virtual string OnHitParticleSystemName () {
+		return null;
+	}
+
 	protected virtual void EnemySpawn () {
 
 	}
 
 	protected virtual void EnemyDead () {
+
+		if (DeadPrefab != null) {
+			Transform spawn = (Transform)Instantiate (DeadPrefab, gameObject.transform.localPosition, Quaternion.identity);
+			spawn.SetParent (ArenaControllerPrefabs.instance.EnemyContainer, false);
+		}
+
+
 		NotificationCenter.postNotification (null, "ENEMY_KILLED", NotificationCenter.Args("score", score));
 		GameObject.Destroy (gameObject);
 	}
