@@ -193,6 +193,8 @@ public class ArenaController : MonoBehaviour, IPUCode {
 			UpdateUnlockables(null);
 			ReportMessage(name, message);
 		};
+
+		UpdateUnlockables (null);
 	}
 
 	void CloseInfo() {

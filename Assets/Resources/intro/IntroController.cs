@@ -73,7 +73,7 @@ public class IntroController : MonoBehaviour, IPUCode {
 		if (introFinished) {
 
 			TwitchController.onConnectedToServer = () => {
-				TwitchController.SendRoomMessage("MAN vs TWITCH! Prepare yourselves to battle your streamer in the arena!");
+				TwitchController.SendRoomMessage("MAN vs TWITCH! Battle your streamer in the arena now by typing !chicken, !knife, !trap, !boulder, or !rageaid.");
 				Application.LoadLevel (1);
 			};
 

@@ -58,7 +58,7 @@ public class TwitchController {
 
 
 
-
+	private static bool ShouldRunDemo;
 
 	public static void DemoOnThread() {
 
@@ -66,7 +66,7 @@ public class TwitchController {
 
 		int sleepTimeMax = 2500;
 
-		while (true) {
+		while (ShouldRunDemo) {
 
 			string[] comments = {
 				"Someone pass the !chicken?",
@@ -115,6 +115,7 @@ public class TwitchController {
 
 	public static void BeginDemoPlay() {
 		// This method will simiulate a IRC population sending obstacle commands...
+		ShouldRunDemo = true;
 		demoThread = new Thread(new ThreadStart(DemoOnThread));
 		demoThread.Start();
 
@@ -122,7 +123,10 @@ public class TwitchController {
 
 	public static void EndTwitch() {
 		if (demoThread != null) {
-			demoThread.Abort ();
+
+			ShouldRunDemo = false;
+			demoThread.Join ();
+			//demoThread.Abort ();
 			demoThread = null;
 		}
 
